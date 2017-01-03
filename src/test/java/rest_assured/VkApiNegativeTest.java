@@ -1,12 +1,14 @@
+package rest_assured;
+
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Response;
-import org.junit.Assert;
-import org.junit.Test;
-import rest_assured.HTTPCodes;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static com.jayway.restassured.RestAssured.given;
+import static constans.MainUrl.*;
 import static org.hamcrest.CoreMatchers.containsString;
 
 /**
@@ -15,12 +17,7 @@ import static org.hamcrest.CoreMatchers.containsString;
  * Time: 11:10 AM
  */
 public class VkApiNegativeTest {
-    private final String BASE_URL = "https://api.vk.com/method";
     private final long VK_ID = 657574575;
-    private final String METHOD_GET = "get";
-    private final String METHOD_FOLLOWERS = "getFollowers";
-    private final String METHOD_SUBSCRIPTIONS = "getSubscriptions";
-    private final String METHOD_FRIENDS_GET = "/friends.get";
 
     @Test
     public void pingTestWithDeletedUser() {
@@ -29,7 +26,7 @@ public class VkApiNegativeTest {
     }
 
     @Test
-    public void idTest() {
+    public void correctIdTest() {
         given().when().get(BASE_URL + "/users." + METHOD_GET + "?user_id=" + VK_ID).
                 then().body(containsString("DELETED"));
     }

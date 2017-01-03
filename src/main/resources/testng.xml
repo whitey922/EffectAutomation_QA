@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="ArtOfTestingTestSuite" verbose="1" parallel="methods" thread-count="4">
+    <test name="parallelExecutionTestsA">
+        <classes>
+            <class name="rest_assured.VkApiPositiveTest"/>
+            <class name="rest_assured.VkApiNegativeTest"/>
+        </classes>
+    </test>
+    <test name="parallelExecutionTestsA">
+        <classes>
+            <class name="http_client.VkApiPositiveTest"/>
+        </classes>
+    </test>
+</suite>
