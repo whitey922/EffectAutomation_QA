@@ -39,7 +39,7 @@ public final class VkApiPositiveTest {
                 .get(BASE_URL +"/users."+ METHOD_FOLLOWERS + USER_ID_METHOD + User.CorrectUser.VK_ID);
         JsonPath jsonPath = JsonPath.from(response.body().asString());
         List<Integer> followersId = jsonPath.get("response.items");
-        Assert.assertTrue(followersId.contains(390248447));
+        Assert.assertTrue(followersId.contains((int)User.CorrectUser.FOLLOWER_ID));
     }
 
     @Test
@@ -48,7 +48,7 @@ public final class VkApiPositiveTest {
                 .get(BASE_URL + "/users." + METHOD_SUBSCRIPTIONS + USER_ID_METHOD + User.CorrectUser.VK_ID);
         JsonPath jsonPath = JsonPath.from(response.body().asString());
         List<Integer> subscriptionsId = jsonPath.get("response.groups.items");
-        Assert.assertTrue(subscriptionsId.contains(90767168));
+        Assert.assertTrue(subscriptionsId.contains((int)User.CorrectUser.SUBSCRIBER_ID));
     }
 
     @Test
@@ -57,7 +57,7 @@ public final class VkApiPositiveTest {
                 .get(BASE_URL + METHOD_FRIENDS_GET + USER_ID_METHOD + User.CorrectUser.VK_ID);
         JsonPath jsonPath = JsonPath.from(response.body().asString());
         List<Integer> subscriptionsId = jsonPath.get("response");
-        Assert.assertTrue(subscriptionsId.contains(5983205));
+        Assert.assertTrue(subscriptionsId.contains((int)User.CorrectUser.FRIEND_ID));
     }
 
 

@@ -11,10 +11,12 @@ public class User {
         public static final String USER_NAME = "Антон";
         public static final String USER_SURNAME = "Егоров";
 
-
+        public static final long FOLLOWER_ID = 390248447;
+        public static final long SUBSCRIBER_ID = 90767168;
+        public static final long FRIEND_ID = 5983205;
     }
-    public class UncorrectedUser
-    {
+
+    public class UncorrectedUser {
         public static final long VK_ID = 657574575;
     }
 }
