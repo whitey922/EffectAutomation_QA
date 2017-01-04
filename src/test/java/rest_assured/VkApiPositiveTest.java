@@ -2,6 +2,7 @@ package rest_assured;
 
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Response;
+import constans.User;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -14,31 +15,28 @@ import static constans.MainUrl.*;
  * Date: 12/28/2016
  * Time: 3:31 PM
  */
-public class VkApiPositiveTest {
-
+public final class VkApiPositiveTest {
     private static final int FIRST_USER = 0;
-    private final long VK_ID = 23338953;
-
-
+    
     @Test
     public void pingTest() {
-        given().when().get(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + VK_ID).
+        given().when().get(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + User.CorrectUser.VK_ID).
                 then().statusCode(HTTPCodes.CODE_200);
     }
 
     @Test
     public void correctIdTest() {
         Response response = given()
-                .get(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + VK_ID);
+                .get(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + User.CorrectUser.VK_ID);
         JsonPath jsonPath = JsonPath.from(response.body().asString());
         List<Integer> uidList = jsonPath.get("response.uid");
-        Assert.assertEquals(uidList.get(FIRST_USER).intValue(), VK_ID);
+        Assert.assertEquals(uidList.get(FIRST_USER).intValue(), User.CorrectUser.VK_ID);
     }
 
     @Test
     public void followersTest() {
         Response response = given()
-                .get(BASE_URL +"/users."+ METHOD_FOLLOWERS + USER_ID_METHOD + VK_ID);
+                .get(BASE_URL +"/users."+ METHOD_FOLLOWERS + USER_ID_METHOD + User.CorrectUser.VK_ID);
         JsonPath jsonPath = JsonPath.from(response.body().asString());
         List<Integer> followersId = jsonPath.get("response.items");
         Assert.assertTrue(followersId.contains(390248447));
@@ -47,7 +45,7 @@ public class VkApiPositiveTest {
     @Test
     public void subscriptionsTest() {
         Response response = given()
-                .get(BASE_URL + "/users." + METHOD_SUBSCRIPTIONS + USER_ID_METHOD + VK_ID);
+                .get(BASE_URL + "/users." + METHOD_SUBSCRIPTIONS + USER_ID_METHOD + User.CorrectUser.VK_ID);
         JsonPath jsonPath = JsonPath.from(response.body().asString());
         List<Integer> subscriptionsId = jsonPath.get("response.groups.items");
         Assert.assertTrue(subscriptionsId.contains(90767168));
@@ -56,7 +54,7 @@ public class VkApiPositiveTest {
     @Test
     public void friendExistTest() {
         Response response = given()
-                .get(BASE_URL + METHOD_FRIENDS_GET + USER_ID_METHOD + VK_ID);
+                .get(BASE_URL + METHOD_FRIENDS_GET + USER_ID_METHOD + User.CorrectUser.VK_ID);
         JsonPath jsonPath = JsonPath.from(response.body().asString());
         List<Integer> subscriptionsId = jsonPath.get("response");
         Assert.assertTrue(subscriptionsId.contains(5983205));

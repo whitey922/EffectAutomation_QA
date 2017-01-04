@@ -1,5 +1,6 @@
 package http_client;
 
+import constans.User;
 import exception.ConnectionException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -21,11 +22,7 @@ import static rest_assured.HTTPCodes.CODE_200;
  * Date: 1/3/2017
  * Time: 3:20 PM
  */
-public class VkApiPositiveTest {
-
-    private final long VK_ID = 23338953;
-    private final String USER_NAME = "Антон";
-    private final String USER_SURNAME = "Егоров";
+public final class VkApiPositiveTest {
 
     private HttpClient client;
     private HttpGet request;
@@ -38,7 +35,7 @@ public class VkApiPositiveTest {
 
     @Test(priority = 1)
     public void pingTest() {
-        request = new HttpGet(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + User.CorrectUser.VK_ID);
         try {
             response = client.execute(request);
         } catch (IOException e) {
@@ -46,12 +43,11 @@ public class VkApiPositiveTest {
         }
 
         Assert.assertEquals(CODE_200, response.getStatusLine().getStatusCode());
-        System.out.println(Thread.currentThread().getId());
     }
 
     @Test(priority = 2)
     public void correctIdTest() {
-        request = new HttpGet(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + User.CorrectUser.VK_ID);
         String responseBody = "";
         try {
             response = client.execute(request);
@@ -61,14 +57,13 @@ public class VkApiPositiveTest {
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
-        System.out.println(Thread.currentThread().getId());
 
-        Assert.assertTrue(responseBody.contains(USER_NAME) && responseBody.contains(USER_SURNAME));
+        Assert.assertTrue(responseBody.contains(User.CorrectUser.USER_NAME) && responseBody.contains(User.CorrectUser.USER_SURNAME));
     }
 
     @Test(priority = 3)
     public void followersTest() {
-        request = new HttpGet(BASE_URL + "/users." + METHOD_FOLLOWERS + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + "/users." + METHOD_FOLLOWERS + USER_ID_METHOD + User.CorrectUser.VK_ID);
         String responseBody = "";
         try {
             response = client.execute(request);
@@ -78,13 +73,12 @@ public class VkApiPositiveTest {
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
-        System.out.println(Thread.currentThread().getId());
         Assert.assertTrue(responseBody.contains("390248447"));
     }
 
     @Test(priority = 4)
     public void subscriptionsTest() {
-        request = new HttpGet(BASE_URL + "/users." + METHOD_SUBSCRIPTIONS + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + "/users." + METHOD_SUBSCRIPTIONS + USER_ID_METHOD + User.CorrectUser.VK_ID);
         String responseBody = "";
         try {
             response = client.execute(request);
@@ -94,13 +88,12 @@ public class VkApiPositiveTest {
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
-        System.out.println(Thread.currentThread().getId());
         Assert.assertTrue(responseBody.contains("33393308"));
     }
 
     @Test(priority = 5)
     public void friendExistTest() {
-        request = new HttpGet(BASE_URL + METHOD_FRIENDS_GET + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + METHOD_FRIENDS_GET + USER_ID_METHOD + User.CorrectUser.VK_ID);
         String responseBody = "";
         try {
             response = client.execute(request);
@@ -110,7 +103,6 @@ public class VkApiPositiveTest {
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
-        System.out.println(Thread.currentThread().getId());
         Assert.assertTrue(responseBody.contains("3171302"));
     }
 

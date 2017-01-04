@@ -1,5 +1,6 @@
 package http_client;
 
+import constans.User;
 import exception.ConnectionException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -21,11 +22,7 @@ import static rest_assured.HTTPCodes.CODE_200;
  * Date: 1/3/2017
  * Time: 5:15 PM
  */
-public class VkApiNegativeTest {
-    private final long VK_ID = 657574575;
-    private final String USER_NAME = "Антон";
-    private final String USER_SURNAME = "Егоров";
-
+public final class VkApiNegativeTest {
     private HttpClient client;
     private HttpGet request;
     private HttpResponse response;
@@ -37,7 +34,7 @@ public class VkApiNegativeTest {
 
     @Test(priority = 1)
     public void pingTest() {
-        request = new HttpGet(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + User.UncorrectedUser.VK_ID);
         try {
             response = client.execute(request);
         } catch (IOException e) {
@@ -49,7 +46,7 @@ public class VkApiNegativeTest {
 
     @Test(priority = 2)
     public void correctIdTest() {
-        request = new HttpGet(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + "/users." + METHOD_GET + USER_ID_METHOD + User.UncorrectedUser.VK_ID);
         String responseBody = "";
         try {
             response = client.execute(request);
@@ -60,13 +57,12 @@ public class VkApiNegativeTest {
             throw new ConnectionException("Connection error!");
         }
 
-        System.out.println(responseBody);
         Assert.assertTrue(responseBody.contains("first_name\":\"DELETED"));
     }
 
     @Test(priority = 3)
     public void followersTest() {
-        request = new HttpGet(BASE_URL + "/users." + METHOD_FOLLOWERS + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + "/users." + METHOD_FOLLOWERS + USER_ID_METHOD + User.UncorrectedUser.VK_ID);
         String responseBody = "";
         try {
             response = client.execute(request);
@@ -81,7 +77,7 @@ public class VkApiNegativeTest {
 
     @Test(priority = 4)
     public void subscriptionsTest() {
-        request = new HttpGet(BASE_URL + "/users." + METHOD_SUBSCRIPTIONS + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + "/users." + METHOD_SUBSCRIPTIONS + USER_ID_METHOD + User.UncorrectedUser.VK_ID);
         String responseBody = "";
         try {
             response = client.execute(request);
@@ -96,7 +92,7 @@ public class VkApiNegativeTest {
 
     @Test(priority = 5)
     public void friendsNonExistTest() {
-        request = new HttpGet(BASE_URL + METHOD_FRIENDS_GET + USER_ID_METHOD + VK_ID);
+        request = new HttpGet(BASE_URL + METHOD_FRIENDS_GET + USER_ID_METHOD + User.UncorrectedUser.VK_ID);
         String responseBody = "";
         try {
             response = client.execute(request);
@@ -108,6 +104,4 @@ public class VkApiNegativeTest {
         }
         Assert.assertTrue(responseBody.contains("Access denied: user deactivated"));
     }
-
-
 }
