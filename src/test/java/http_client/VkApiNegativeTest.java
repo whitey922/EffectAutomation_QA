@@ -50,9 +50,13 @@ public final class VkApiNegativeTest {
         String responseBody = "";
         try {
             response = client.execute(request);
-            BufferedReader rd = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            responseBody = rd.readLine();
+            try(BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()))){
+                responseBody = rd.readLine();
+            }
+            catch (IOException e) {
+                throw new ConnectionException("Read from service error!");
+            }
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
@@ -66,9 +70,13 @@ public final class VkApiNegativeTest {
         String responseBody = "";
         try {
             response = client.execute(request);
-            BufferedReader rd = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            responseBody = rd.readLine();
+            try(BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()))){
+                responseBody = rd.readLine();
+            }
+            catch (IOException e) {
+                throw new ConnectionException("Read from service error!");
+            }
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
@@ -81,9 +89,13 @@ public final class VkApiNegativeTest {
         String responseBody = "";
         try {
             response = client.execute(request);
-            BufferedReader rd = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            responseBody = rd.readLine();
+            try(BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()))){
+                responseBody = rd.readLine();
+            }
+            catch (IOException e) {
+                throw new ConnectionException("Read from service error!");
+            }
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
@@ -96,9 +108,13 @@ public final class VkApiNegativeTest {
         String responseBody = "";
         try {
             response = client.execute(request);
-            BufferedReader rd = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            responseBody = rd.readLine();
+            try(BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()))){
+                responseBody = rd.readLine();
+            }
+            catch (IOException e) {
+                throw new ConnectionException("Read from service error!");
+            }
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }

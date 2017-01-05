@@ -51,14 +51,20 @@ public final class VkApiPositiveTest {
         String responseBody = "";
         try {
             response = client.execute(request);
-            BufferedReader rd = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            responseBody = rd.readLine();
+            try(BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()))){
+                responseBody = rd.readLine();
+            }
+            catch (IOException e) {
+                throw new ConnectionException("Read from service error!");
+            }
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
 
-        Assert.assertTrue(responseBody.contains(User.CorrectUser.USER_NAME) && responseBody.contains(User.CorrectUser.USER_SURNAME));
+        Assert.assertTrue(
+                responseBody.contains(User.CorrectUser.USER_NAME) &&
+                        responseBody.contains(User.CorrectUser.USER_SURNAME));
     }
 
     @Test(priority = 3)
@@ -67,13 +73,17 @@ public final class VkApiPositiveTest {
         String responseBody = "";
         try {
             response = client.execute(request);
-            BufferedReader rd = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            responseBody = rd.readLine();
+            try(BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()))){
+                responseBody = rd.readLine();
+            }
+            catch (IOException e) {
+                throw new ConnectionException("Read from service error!");
+            }
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
-        Assert.assertTrue(responseBody.contains("390248447"));
+        Assert.assertTrue(responseBody.contains(String.valueOf(User.CorrectUser.FOLLOWER_ID)));
     }
 
     @Test(priority = 4)
@@ -82,13 +92,17 @@ public final class VkApiPositiveTest {
         String responseBody = "";
         try {
             response = client.execute(request);
-            BufferedReader rd = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            responseBody = rd.readLine();
+            try(BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()))){
+                responseBody = rd.readLine();
+            }
+            catch (IOException e) {
+                throw new ConnectionException("Read from service error!");
+            }
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
-        Assert.assertTrue(responseBody.contains("33393308"));
+        Assert.assertTrue(responseBody.contains(String.valueOf(User.CorrectUser.SUBSCRIBER_ID)));
     }
 
     @Test(priority = 5)
@@ -97,13 +111,18 @@ public final class VkApiPositiveTest {
         String responseBody = "";
         try {
             response = client.execute(request);
-            BufferedReader rd = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            responseBody = rd.readLine();
+            try(BufferedReader rd = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()))){
+                responseBody = rd.readLine();
+            }
+            catch (IOException e) {
+                throw new ConnectionException("Read from service error!");
+            }
+
         } catch (IOException e) {
             throw new ConnectionException("Connection error!");
         }
-        Assert.assertTrue(responseBody.contains("3171302"));
+        Assert.assertTrue(responseBody.contains(String.valueOf(User.CorrectUser.FRIEND_ID)));
     }
 
 }
